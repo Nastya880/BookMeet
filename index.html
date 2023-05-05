@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Бронирование переговорной</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="form">
+        <h3>Бронирование переговорной</h3>
+        <form class="main_form" id="BookMeet" autocomplete="off">
+            <div class="form_items_boxes">
+                <input type="text" id="Tower" name="Tower" required>
+                <label class="Placeholder">Башня</label>
+            </div>
+
+            <div class="form_items_boxes">
+                <input type="text" id="Floor" name="Floor" required>
+                <label class="Placeholder">Этаж</label>
+            </div>
+
+            <div class="form_items_boxes">
+                <input type="text" id="RoomNumber" name="RoomNumber" required>
+                <label class="Placeholder">Номер переговорки</label>
+            </div>
+
+            <div class="form_items_boxes">
+                <input type="text" id="DateTime" name="DateTime" required>
+                <label class="Placeholder">Дата и время</label>
+            </div>
+        </form>
+
+        <button class="button" form="BookMeet">Забронировать</button>
+    </div>
+
+    <table class="table_meet">
+        <thead>
+            <tr>
+                <th>Башня</th>
+                <th>Этаж</th>
+                <th>Номер переговорки</th>
+                <th>Дата и время</th>
+                <th>Комментарий</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+<script src="form.js"></script>
+</html>
