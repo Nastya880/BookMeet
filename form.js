@@ -1,3 +1,9 @@
+var timerDate = 0;
+var timerTime = 0;
+
+const textErrorDate = 'Указана прошедшая дата';
+const textErrorTime = 'Указано прошедшее время';
+
 // элементы с выпадающим списком
 let selectTower = document.getElementById("towerID");
 let selectFloor = document.getElementById("floorID");
@@ -12,11 +18,12 @@ let fields = form.querySelectorAll('.field')
 
 // проверка даты
 let dateChoose = form.querySelector('.dateChoose')
-let dateCheck = false;
+var dateCheck = false;
 
 // проверка времени
 let timeStartChoose = form.querySelector('.timeStartChoose')
 let timeEndChoose = form.querySelector('.timeEndChoose')
+let timeStartCheck = false;
 
 // текущие дата и время
 let localDate = new Date().toLocaleDateString('ru-RU');
@@ -26,6 +33,10 @@ let localHour = localTime.slice(0,2);
 let localYear = localDate.slice(6,10);
 let localMonth = localDate.slice(3,5);
 let localDay = localDate.slice(0,2);
+
+var chooseYear;
+var chooseMonth;
+var chooseDay;
 
 const clearButton = document.getElementById('clearButtonID');
 const sendButton = document.getElementById('sendButtonID');
@@ -60,8 +71,10 @@ function optionNumberRoom()
   }
 }
 
+var error = document.createElement('div');
+
 function generateError (textError, valueError) {
-  let error = document.createElement('div');
+  error = document.createElement('div');
   error.className = 'error';
   error.style.color = 'red';
   error.innerHTML = textError;
@@ -85,7 +98,12 @@ function checkFieldsPresence () {
   }
   if (!dateCheck)
   {
-    dateChoose.parentElement.insertBefore(generateError('Указана прошедшая дата', dateChoose), dateChoose);
+    dateChoose.parentElement.insertBefore(generateError(textErrorDate, dateChoose), dateChoose);
+    return false;
+  }
+  if (!timeStartCheck)
+  {
+    timeStartChoose.parentElement.insertBefore(generateError(textErrorTime, timeStartChoose), timeStartChoose);
     return false;
   }
   return true;
@@ -104,20 +122,59 @@ optionNumberRoom();
 
 // проверка даты (выбрана текущая и позже)
 dateChoose.addEventListener('change', function (e) {
+  if(!dateCheck)
+    error.innerHTML = '';
   // выбранная пользователем дата
-  let chooseDateString = e.target.value.toString();
-  let chooseYear = chooseDateString.slice(0,4);
-  let chooseMonth = chooseDateString.slice(6,7);
-  let chooseDay = chooseDateString.slice(8,10);
+  var chooseDateString = e.target.value.toString();
+  chooseYear = chooseDateString.slice(0,4);
+  chooseMonth = chooseDateString.slice(6,7);
+  chooseDay = chooseDateString.slice(8,10);
 
-  if(localYear - chooseYear > 0)
-    dateChoose.parentElement.insertBefore(generateError('Указан прошедший год', chooseYear), dateChoose);
-  else if (localYear - chooseYear == 0 && localMonth - chooseMonth > 0)
-    dateChoose.parentElement.insertBefore(generateError('Указан прошедший месяц', chooseYear), dateChoose);
-  else if (localYear - chooseYear == 0 && localMonth - chooseMonth == 0 && localDay - chooseDay > 0)
-    dateChoose.parentElement.insertBefore(generateError('Указан прошедший день', chooseYear), dateChoose);
+  if(localYear - chooseYear > 0) {
+    dateChoose.parentElement.insertBefore(generateError("Неверный год", chooseYear), dateChoose);
+    dateCheck = false;
+  }
+  else if (localYear - chooseYear == 0 && localMonth - chooseMonth > 0) {
+    dateChoose.parentElement.insertBefore(generateError("Неверный месяц", chooseYear), dateChoose);
+    dateCheck = false;
+  }
+  else if (localYear - chooseYear == 0 && localMonth - chooseMonth == 0 && localDay - chooseDay > 0) {
+    dateChoose.parentElement.insertBefore(generateError("Неверный день", chooseYear), dateChoose);
+    dateCheck = false;
+  }
   else
+  {
     dateCheck = true;
+   // console.log('first date ' + dateCheck);
+  }
+});
+
+// проверка времени (выбрана текущая и позже)
+timeStartChoose.addEventListener('change', function (e) {
+  if(!timeStartCheck)
+    error.innerHTML = '';
+  // выбранное пользователем время начала бронирования
+  let chooseTimeStartString = e.target.value.toString();
+  let chooseStartMinute = chooseTimeStartString.slice(3,5);
+  let chooseStartHour = chooseTimeStartString.slice(0,2);
+ // console.log('datecheck' + dateCheck);
+  if(!dateCheck)
+  {
+    timeStartChoose.parentElement.insertBefore(generateError('Указана прошедшая дата', dateChoose), timeStartChoose);
+    timeStartCheck = false;
+  }
+  else if (localYear - chooseYear == 0 && localMonth - chooseMonth == 0 && localDay - chooseDay == 0) {
+    if (localHour - chooseStartHour > 0)
+    {
+      timeStartCheck = false;
+      timeStartChoose.parentElement.insertBefore(generateError(textErrorTime, chooseStartHour), timeStartChoose);
+    }
+    else if (localHour - chooseStartHour == 0 && localMinute - chooseStartMinute > 0) {
+      timeStartCheck = false;
+      timeStartChoose.parentElement.insertBefore(generateError(textErrorTime, chooseStartMinute), timeStartChoose);
+    }
+  } else
+    timeStartCheck = true;
 });
 
 sendButton.addEventListener('click', function handleClick(event) {
@@ -127,6 +184,8 @@ sendButton.addEventListener('click', function handleClick(event) {
   if (!checkFieldsPresence())
     console.log("Error");
   else {
+    timerTime = 0;
+    timerDate = 0;
     const Store_Form_Data = {}
     Store_Form_Data.tower = selectTower.value;
     Store_Form_Data.floor = selectFloor.value;
@@ -143,6 +202,8 @@ sendButton.addEventListener('click', function handleClick(event) {
 clearButton.addEventListener('click', function handleClick(event) {
   event.preventDefault();
   console.log('Нажата кнопка Очистить');
+  timerDate = 0;
+  timerTime = 0;
   for (var i = 0; i < fields.length; i++) {
     if (fields[i].value)
       fields[i].value = clearForm(fields[i].value);
