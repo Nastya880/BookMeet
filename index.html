@@ -5,47 +5,50 @@
     <title>Бронирование переговорной</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="form">
-        <h3>Бронирование переговорной</h3>
-        <form class="main_form" id="BookMeet" autocomplete="off">
-            <div class="form_items_boxes">
-                <input type="text" id="Tower" name="Tower" required>
-                <label class="Placeholder">Башня</label>
-            </div>
+    <form class='bookingMeetingRoom'>
+      <div>
+        <div>
+          <label>Башня</label>
+        </div>
+        
+        <div>
+          <select class='tower field' id="towerID">
+            <option value=''>Выберите башню</option>
+          </select>
+        </div>
+      </div>
+      
+      <div>
+        <div>
+          <label>Комментарий</label>
+        </div>
+        
+        <div>
+          <textarea class='comment field'></textarea>
+        </div>
+      </div>
 
-            <div class="form_items_boxes">
-                <input type="text" id="Floor" name="Floor" required>
-                <label class="Placeholder">Этаж</label>
-            </div>
+      <!--span class="dateChoose field">Дата бронирования</span-->
+        <!--min="2023-04-20"-->
+      <input type="date" id="dateID" name="date" class="dateChoose field">
+      
+      <div>
+        <span>
+          <label for="hour">Час:</label>
+            <select id="hourID" name="hour"></select>
+        </span>
+        
+        <span>
+          <label for="minute">Минуты:</label>
+            <select id="minuteID" name="minute"></select>
+        </span>
+      </div>
 
-            <div class="form_items_boxes">
-                <input type="text" id="RoomNumber" name="RoomNumber" required>
-                <label class="Placeholder">Номер переговорки</label>
-            </div>
+    <button id="clearButtonID" type="clear">Очистить</button>
+    <button id="sendButtonID" type="send">Отправить</button>
+    </form>
 
-            <div class="form_items_boxes">
-                <input type="text" id="DateTime" name="DateTime" required>
-                <label class="Placeholder">Дата и время</label>
-            </div>
-        </form>
-
-        <button class="button" form="BookMeet">Забронировать</button>
-    </div>
-
-    <table class="table_meet">
-        <thead>
-            <tr>
-                <th>Башня</th>
-                <th>Этаж</th>
-                <th>Номер переговорки</th>
-                <th>Дата и время</th>
-                <th>Комментарий</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-</body>
-<script src="form.js"></script>
+    <script src='form.js'></script>
+  </body>
 </html>
