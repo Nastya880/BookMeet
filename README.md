@@ -2,7 +2,7 @@
 
 ## Задание
 
-![subject width=10%](/img/задание.png)
+![subject width=10%](/img/задание-1.png)
 
 ## Результат
 
