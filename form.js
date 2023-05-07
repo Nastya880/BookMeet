@@ -1,10 +1,15 @@
 // выпадающий список для выбора башни (А, Б)
 let selectTower = document.getElementById("towerID");
+let selectFloor = document.getElementById("floorID");
+let selectNumberRoom = document.getElementById("numberRoomID");
+
 const optionsTower = ["А", "Б"];
 
 let form = document.querySelector('.bookingMeetingRoom')
 let tower = form.querySelector('.tower')
 let comment = form.querySelector('.comment')
+let floor = form.querySelector('.floor')
+let numberRoom = form.querySelector('.numberRoom')
 let fields = form.querySelectorAll('.field')
 
 // проверка времени
@@ -30,6 +35,26 @@ function optionTower()
     elTower.textContent = optionsTower[i];
     elTower.value = optionsTower[i];
     selectTower.appendChild(elTower);
+  }
+}
+
+function optionFloor()
+{
+  for (let i = 3; i < 28; i++) {
+    let elFloor = document.createElement("option");
+    elFloor.textContent = i;
+    elFloor.value = i;
+    selectFloor.appendChild(elFloor);
+  }
+}
+
+function optionNumberRoom()
+{
+  for (let i = 1; i < 11; i++) {
+    let elNumberRoom = document.createElement("option");
+    elNumberRoom.textContent = i;
+    elNumberRoom.value = i;
+    selectNumberRoom.appendChild(elNumberRoom);
   }
 }
 
@@ -72,6 +97,8 @@ function clearForm(valueClear)
 }
 
 optionTower();
+optionFloor();
+optionNumberRoom();
 
 // проверка даты (выбрана текущая и позже)
 dateChoose.addEventListener('change', function (e) {
@@ -100,8 +127,10 @@ sendButton.addEventListener('click', function handleClick(event) {
   else {
     const Store_Form_Data = {}
     Store_Form_Data.tower = tower.value;
-    Store_Form_Data.comment = comment.value;
+    Store_Form_Data.floor = floor.value;
+    Store_Form_Data.numberRoom = numberRoom.value;
     Store_Form_Data.date = dateChoose.value;
+    Store_Form_Data.comment = comment.value;
     console.log("Send form\n", Store_Form_Data)
     alert("Переговорная успешно забронирована")
   }
