@@ -1,6 +1,3 @@
-/*const textErrorDate = 'Указана прошедшая дата';
-const textErrorTime = 'Указано прошедшее время';*/
-
 // элементы с выпадающим списком
 let selectTower = document.getElementById("towerID");
 let selectFloor = document.getElementById("floorID");
@@ -11,19 +8,16 @@ const optionsTower = ["А", "Б"];
 
 let form = document.querySelector(".bookingMeetingRoom");
 let comment = form.querySelector(".comment");
-comment.value = "";
 let fields = form.querySelectorAll(".field");
 
 // проверка даты
 let dateChoose = form.querySelector(".dateChoose");
-dateChoose.value = "";
 let dateCheck = false;
 
 // проверка времени
 let timeStartChoose = form.querySelector(".timeStartChoose");
 timeStartChoose.value = "";
 let timeEndChoose = form.querySelector(".timeEndChoose");
-timeEndChoose.value = "";
 let timeStartCheck = false;
 let timeEndCheck = false;
 
@@ -75,15 +69,10 @@ function optionNumberRoom()
   }
 }
 
-var error = document.createElement("div");
-
-function generateError (textError, valueError) {
-  error = document.createElement("div");
-  error.className = "error";
-  error.style.color = "red";
-  error.innerHTML = textError;
-  console.log(textError, valueError);
-  return error;
+function generateError (textError, valueError, element) {
+  element.style.color = "red";
+  console.log(textError + ' ' + valueError);
+  return false;
 }
 
 function removeValidation () {
@@ -95,26 +84,18 @@ function removeValidation () {
 
 function checkFieldsPresence () {
   for (var i = 0; i < fields.length; i++) {
-    if (!fields[i].value) {
-      form[i].parentElement.insertBefore(generateError("Заполните поле", fields[i]), fields[i]);
-      return false;
+    fields[i].style.color = "black";
+    if (!fields[i].value)
+    {
+      return (generateError("Поле не заполнено", fields[i], fields[i]));
     }
   }
   if (!dateCheck)
-  {
-    dateChoose.parentElement.insertBefore(generateError("Перепроверьте значение поля", dateChoose), dateChoose);
-    return false;
-  }
+    return (generateError("Неверное значение поля", dateChoose, dateChoose));
   if (!timeStartCheck)
-  {
-    timeStartChoose.parentElement.insertBefore(generateError("Перепроверьте значение поля", timeStartChoose), timeStartChoose);
-    return false;
-  }
+    return (generateError("Неверное значение поля", timeStartChoose, timeStartChoose));
   if (!timeEndCheck)
-  {
-    timeEndChoose.parentElement.insertBefore(generateError("Перепроверьте значение поля", timeEndChoose), timeEndChoose);
-    return false;
-  }
+    return (generateError("Неверное значение поля", timeEndChoose, timeEndChoose));
   return true;
 }
 
@@ -132,79 +113,64 @@ optionNumberRoom();
 // проверка даты (выбрана текущая и позже)
 dateChoose.addEventListener("change", function (e) {
   if(!dateCheck)
-    error.innerHTML = "";
+    e.target.style.color = "black";
   // выбранная пользователем дата
   let chooseDateString = e.target.value.toString();
   chooseYear = chooseDateString.slice(0,4);
   chooseMonth = chooseDateString.slice(6,7);
   chooseDay = chooseDateString.slice(8,10);
 
-  if(localYear - chooseYear > 0) {
-    dateChoose.parentElement.insertBefore(generateError("Неверный год", chooseYear), dateChoose);
-    dateCheck = false;
-  }
-  else if (localYear - chooseYear == 0 && localMonth - chooseMonth > 0) {
-    dateChoose.parentElement.insertBefore(generateError("Неверный месяц", chooseYear), dateChoose);
-    dateCheck = false;
-  }
-  else if (localYear - chooseYear == 0 && localMonth - chooseMonth == 0 && localDay - chooseDay > 0) {
-    dateChoose.parentElement.insertBefore(generateError("Неверный день", chooseYear), dateChoose);
-    dateCheck = false;
-  }
-  else
+  if(localYear - chooseYear > 0)
+    dateCheck = generateError("Неверный год", chooseYear,  e.target);
+  else if (localYear - chooseYear == 0 && localMonth - chooseMonth > 0)
+    dateCheck = generateError("Неверный месяц", chooseMonth,  e.target);
+  else if (localYear - chooseYear == 0 && localMonth - chooseMonth == 0 && localDay - chooseDay > 0)
+    dateCheck = generateError("Неверный день", chooseDay, e.target);
+  else {
+    e.target.style.color= "black";
     dateCheck = true;
+  }
 });
 
 // проверка времени начала (выбрана текущая и позже)
 timeStartChoose.addEventListener("change", function (e) {
   if(!timeStartCheck)
-    error.innerHTML = '';
+    e.target.style.color= "black";
   // выбранное пользователем время начала бронирования
   let chooseTimeStartString = e.target.value.toString();
   chooseStartMinute = chooseTimeStartString.slice(3,5);
   chooseStartHour = chooseTimeStartString.slice(0,2);
- // console.log('datecheck' + dateCheck);
   if(!dateCheck)
-  {
-    timeStartChoose.parentElement.insertBefore(generateError("Указана неверная дата", dateChoose), timeStartChoose);
-    timeStartCheck = false;
-  }
+    timeStartCheck = generateError("Указана неверная дата", dateChoose, e.target);
   else if (localYear - chooseYear == 0 && localMonth - chooseMonth == 0 && localDay - chooseDay == 0) {
     if (localHour - chooseStartHour > 0)
-    {
-      timeStartCheck = false;
-      timeStartChoose.parentElement.insertBefore(generateError("Указано прошедшее время (час)", chooseStartHour), timeStartChoose);
-    }
-    else if (localHour - chooseStartHour == 0 && localMinute - chooseStartMinute > 0) {
-      timeStartCheck = false;
-      timeStartChoose.parentElement.insertBefore(generateError("Указано прошедшее время (минуты)", chooseStartMinute), timeStartChoose);
-    }
-  } else
+      timeStartCheck = generateError("Указано прошедшее время (час)", chooseStartHour, e.target);
+    else if (localHour - chooseStartHour == 0 && localMinute - chooseStartMinute > 0)
+      timeStartCheck = generateError("Указано прошедшее время (минуты)", chooseStartMinute, e.target);
+  } else {
+    e.target.style.color= "black";
     timeStartCheck = true;
+  }
 });
 
 // проверка времени окончания (выбрана текущая и позже)
 timeEndChoose.addEventListener("change", function (e) {
   if(!timeEndCheck)
-    error.innerHTML = "";
+    e.target.style.color= "black";
   // выбранное пользователем время окончания бронирования
   let chooseTimeEndString = e.target.value.toString();
   let chooseEndMinute = chooseTimeEndString.slice(3,5);
   let chooseEndHour = chooseTimeEndString.slice(0,2);
   if(!timeStartCheck)
-  {
-    timeEndChoose.parentElement.insertBefore(generateError("Указано неверное время начала бронирования переговорной", timeStartChoose), timeEndChoose);
-    timeEndCheck = false;
-  }
-  else if (chooseStartHour - chooseEndHour > 0) {
-    timeEndChoose.parentElement.insertBefore(generateError("Время окончания бронирования должно быть после время начала (час)", timeEndChoose), timeEndChoose);
-    timeEndCheck = false;
-  } else if (chooseStartHour - chooseEndHour == 0 && chooseStartMinute - chooseEndMinute >= 0) {
-    timeEndChoose.parentElement.insertBefore(generateError("Время окончания бронирования должно быть после время начала (минуты)", timeEndChoose), timeEndChoose);
-    timeEndCheck = false;
-  }
-  else
+    timeEndCheck = generateError("Указано неверное время начала бронирования переговорной", timeStartChoose, e.target);
+  else if (chooseStartHour - chooseEndHour > 0)
+    timeEndCheck = generateError("Время окончания бронирования должно быть после время начала (час)", timeEndChoose, e.target);
+  else if (chooseStartHour - chooseEndHour == 0 && chooseStartMinute - chooseEndMinute >= 0)
+    timeEndCheck = generateError("Время окончания бронирования должно быть после время начала (минуты)", timeEndChoose, e.target);
+  else {
+    e.target.style.color= "black";
     timeEndCheck = true;
+  }
 });
 
 sendButton.addEventListener("click", function handleClick(event) {
@@ -230,10 +196,11 @@ sendButton.addEventListener("click", function handleClick(event) {
 clearButton.addEventListener('click', function handleClick(event) {
   event.preventDefault();
   console.log("Нажата кнопка 'Очистить'");
-  error.innerHTML = "";
+
   for (var i = 0; i < fields.length; i++) {
+    fields[i].style.color = "black";
     if (fields[i].value)
       fields[i].value = clearForm(fields[i].value);
   }
-  //alert("clear");
+  alert("Значения полей формы удалены");
 });
