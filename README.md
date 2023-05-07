@@ -26,5 +26,5 @@
 ## Стек
 
 - JavaScript
-- Html
+- Html (без использования "required")
 - CSS
