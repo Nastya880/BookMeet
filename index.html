@@ -7,7 +7,16 @@
 </head>
   
 <body>
-  <form class='bookingMeetingRoom'>
+  <div class="form">
+  <h1>Бронирование переговорной</h1>
+  <form autocomplete="off">
+
+    <!--всплывающая подсказка при наведении на нее-->
+    <div class="block-tool-comment">
+      <div class="tool-comment">?</div>
+      <div class="tool-comment-text">Выберите башню: А или Б</div>
+    </div>
+
     <div>
         <label>Башня</label>
         <select class='tower field' id="towerID">
@@ -15,11 +24,23 @@
         </select>
     </div>
       
+    <!--всплывающая подсказка при наведении на нее-->
+    <div class="block-tool-comment">
+      <div class="tool-comment">?</div>
+      <div class="tool-comment-text">Выберите этаж: 3-27</div>
+    </div>
+
     <div>
       <label>Этаж</label>
       <select class='floor field' id="floorID">
         <option value=''>Выберите этаж (3-27)</option>
       </select>
+    </div>
+
+    <!--всплывающая подсказка при наведении на нее-->
+    <div class="block-tool-comment">
+      <div class="tool-comment">?</div>
+      <div class="tool-comment-text">Выберите номер переговорной: 1-10</div>
     </div>
 
     <div>
@@ -31,12 +52,33 @@
 
     <!--span class="dateChoose field">Дата бронирования</span-->
     <!--min="2023-04-20"-->
+    <!--всплывающая подсказка при наведении на нее-->
+    <div class="block-tool-comment">
+      <div class="tool-comment">?</div>
+      <div class="tool-comment-text">Выберите дату и интервал времени бронирования</div>
+    </div>
     <div>
       <label>Дата бронирования</label>
       <input  type="date" id="dateID" name="date" class="dateChoose field">
-      <label>Начало время бронирования</label>
-      <input type="time" id="timeStartID" class="timeStartChoose field"/> 
-      <input type="time" id="timeEndID" class="timeEndChoose field"/>
+    </div>
+
+
+    <div class="form-time">
+      <div>
+        <label>Начало время бронирования</label>
+        <input type="time" id="timeStartID" class="timeStartChoose field"/>
+      </div>
+      
+      <div>
+        <label>Начало время бронирования</label>
+          <input type="time" id="timeEndID" class="timeEndChoose field"/>
+      </div>
+    </div>
+
+    <!--всплывающая подсказка при наведении на нее-->
+    <div class="block-tool-comment">
+      <div class="tool-comment">?</div>
+      <div class="tool-comment-text">Добавьте комментарий к бронированию переговорной</div>
     </div>
 
     <div>
@@ -44,10 +86,11 @@
       <textarea class='comment field'></textarea>
     </div>
     
-    <button id="clearButtonID" type="clear">Очистить</button>
-    <button id="sendButtonID" type="send">Отправить</button>
+    <button id="clearButtonID" type="clear" class="form-button">Очистить</button>
+    <button id="sendButtonID" type="send" class="form-button">Отправить</button>
     </form>
 
     <script src='form.js'></script>
-  </body>
+  </div>
+</body>
 </html>
