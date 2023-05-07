@@ -191,6 +191,11 @@ sendButton.addEventListener("click", function handleClick(event) {
     console.log("Форма отправлена\n", Store_Form_Data)
     alert("Переговорная успешно забронирована")
   }
+  for (var i = 0; i < fields.length; i++) {
+    fields[i].style.color = "black";
+    if (fields[i].value)
+      fields[i].value = clearForm(fields[i].value);
+  }
 });
 
 clearButton.addEventListener('click', function handleClick(event) {
