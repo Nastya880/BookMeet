@@ -5,45 +5,46 @@
     <title>Бронирование переговорной</title>
     <link rel="stylesheet" href="style.css">
 </head>
+  
 <body>
-    <form class='bookingMeetingRoom'>
+  <form class='bookingMeetingRoom'>
+    <div>
       <div>
-        <div>
-          <label>Башня</label>
-        </div>
-        
-        <div>
-          <select class='tower field' id="towerID">
-            <option value=''>Выберите башню</option>
-          </select>
-        </div>
+        <label>Башня</label>
       </div>
+        
+      <div>
+        <select class='tower field' id="towerID">
+          <option value=''>Выберите башню</option>
+        </select>
+      </div>
+    </div>
       
+    <div>
       <div>
-        <div>
-          <label>Комментарий</label>
-        </div>
-        
-        <div>
-          <textarea class='comment field'></textarea>
-        </div>
+        <label>Комментарий</label>
       </div>
+        
+      <div>
+        <textarea class='comment field'></textarea>
+      </div>
+    </div>
 
-      <!--span class="dateChoose field">Дата бронирования</span-->
-        <!--min="2023-04-20"-->
-      <input type="date" id="dateID" name="date" class="dateChoose field">
+    <!--span class="dateChoose field">Дата бронирования</span-->
+    <!--min="2023-04-20"-->
+    <input type="date" id="dateID" name="date" class="dateChoose field">
       
-      <div>
-        <span>
-          <label for="hour">Час:</label>
-            <select id="hourID" name="hour"></select>
-        </span>
+    <div>
+      <span>
+        <label for="hour">Час:</label>
+          <select id="hourID" name="hour"></select>
+      </span>
         
-        <span>
-          <label for="minute">Минуты:</label>
-            <select id="minuteID" name="minute"></select>
-        </span>
-      </div>
+      <span>
+        <label for="minute">Минуты:</label>
+          <select id="minuteID" name="minute"></select>
+      </span>
+    </div>
 
     <button id="clearButtonID" type="clear">Очистить</button>
     <button id="sendButtonID" type="send">Отправить</button>
