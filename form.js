@@ -1,20 +1,22 @@
-// выпадающий список для выбора башни (А, Б)
+// элементы с выпадающим списком
 let selectTower = document.getElementById("towerID");
 let selectFloor = document.getElementById("floorID");
 let selectNumberRoom = document.getElementById("numberRoomID");
 
+// содержимое выпадающего списка  для поля "Башня"
 const optionsTower = ["А", "Б"];
 
 let form = document.querySelector('.bookingMeetingRoom')
-let tower = form.querySelector('.tower')
 let comment = form.querySelector('.comment')
-let floor = form.querySelector('.floor')
-let numberRoom = form.querySelector('.numberRoom')
 let fields = form.querySelectorAll('.field')
 
-// проверка времени
+// проверка даты
 let dateChoose = form.querySelector('.dateChoose')
 let dateCheck = false;
+
+// проверка времени
+let timeStartChoose = form.querySelector('.timeStartChoose')
+let timeEndChoose = form.querySelector('.timeEndChoose')
 
 // текущие дата и время
 let localDate = new Date().toLocaleDateString('ru-RU');
@@ -126,10 +128,12 @@ sendButton.addEventListener('click', function handleClick(event) {
     console.log("Error");
   else {
     const Store_Form_Data = {}
-    Store_Form_Data.tower = tower.value;
-    Store_Form_Data.floor = floor.value;
-    Store_Form_Data.numberRoom = numberRoom.value;
+    Store_Form_Data.tower = selectTower.value;
+    Store_Form_Data.floor = selectFloor.value;
+    Store_Form_Data.numberRoom = selectNumberRoom.value;
     Store_Form_Data.date = dateChoose.value;
+    Store_Form_Data.timeStart = timeStartChoose.value;
+    Store_Form_Data.timeEnd = timeEndChoose.value;
     Store_Form_Data.comment = comment.value;
     console.log("Send form\n", Store_Form_Data)
     alert("Переговорная успешно забронирована")
