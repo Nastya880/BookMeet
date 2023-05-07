@@ -6,7 +6,7 @@ let selectNumberRoom = document.getElementById("numberRoomID");
 // содержимое выпадающего списка  для поля "Башня"
 const optionsTower = ["А", "Б"];
 
-let form = document.querySelector(".bookingMeetingRoom");
+let form = document.querySelector(".form");
 let comment = form.querySelector(".comment");
 let fields = form.querySelectorAll(".field");
 
