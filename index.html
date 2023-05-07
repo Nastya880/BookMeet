@@ -29,20 +29,21 @@
       </select>
     </div>
 
-    <div>
-        <label>Комментарий</label>
-        <textarea class='comment field'></textarea>
-    </div>
-
     <!--span class="dateChoose field">Дата бронирования</span-->
     <!--min="2023-04-20"-->
     <div>
       <label>Дата бронирования</label>
-      <input type="date" id="dateID" name="date" class="dateChoose field">
+      <input  type="date" id="dateID" name="date" class="dateChoose field">
       <label>Начало время бронирования</label>
-      <input type="time" id="timeStartID" class="timeStartChoose field"/> - <input type="time" id="timeEndID" class="timeEndChoose field" />
+      <input type="time" id="timeStartID" class="timeStartChoose field"/> 
+      <input type="time" id="timeEndID" class="timeEndChoose field"/>
     </div>
 
+    <div>
+      <label>Комментарий</label>
+      <textarea class='comment field'></textarea>
+    </div>
+    
     <button id="clearButtonID" type="clear">Очистить</button>
     <button id="sendButtonID" type="send">Отправить</button>
     </form>
