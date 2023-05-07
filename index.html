@@ -9,30 +9,39 @@
 <body>
   <form class='bookingMeetingRoom'>
     <div>
-      <div>
         <label>Башня</label>
-      </div>
-        
-      <div>
         <select class='tower field' id="towerID">
           <option value=''>Выберите башню</option>
         </select>
-      </div>
     </div>
       
     <div>
-      <div>
+      <label>Этаж</label>
+      <select class='floor field' id="floorID">
+        <option value=''>Выберите этаж (3-27)</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Номер переговорной</label>
+      <select class='numberRoom field' id="numberRoomID">
+        <option value=''>Выберите номер переговорной (1-20)</option>
+      </select>
+    </div>
+
+    <div>
         <label>Комментарий</label>
-      </div>
-        
-      <div>
         <textarea class='comment field'></textarea>
-      </div>
     </div>
 
     <!--span class="dateChoose field">Дата бронирования</span-->
     <!--min="2023-04-20"-->
-    <input type="date" id="dateID" name="date" class="dateChoose field">
+    <div>
+      <label>Дата бронирования</label>
+      <input type="date" id="dateID" name="date" class="dateChoose field">
+      <label>Начало время бронирования</label>
+      <input type="time" id="timeStartID" class="timeStartChoose field"/> - <input type="time" id="timeEndID" class="timeEndChoose field" />
+    </div>
       
     <div>
       <span>
