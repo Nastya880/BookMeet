@@ -188,7 +188,7 @@ sendButton.addEventListener("click", function handleClick(event) {
     Store_Form_Data.timeStart = timeStartChoose.value;
     Store_Form_Data.timeEnd = timeEndChoose.value;
     Store_Form_Data.comment = comment.value;
-    console.log("Форма отправлена\n", Store_Form_Data)
+    console.log("Форма отправлена\n", JSON.stringify(Store_Form_Data))
     alert("Переговорная успешно забронирована")
     for (var i = 0; i < fields.length; i++) {
       fields[i].style.color = "black";
