@@ -30,11 +30,11 @@ let localYear = localDate.slice(6,10);
 let localMonth = localDate.slice(3,5);
 let localDay = localDate.slice(0,2);
 
-var chooseYear;
-var chooseMonth;
-var chooseDay;
-var chooseStartMinute;
-var chooseStartHour;
+let chooseYear;
+let chooseMonth;
+let chooseDay;
+let chooseStartMinute;
+let chooseStartHour;
 
 const clearButton = document.getElementById("clearButtonID");
 const sendButton = document.getElementById("sendButtonID");
@@ -83,7 +83,7 @@ function removeValidation () {
 }
 
 function checkFieldsPresence () {
-  for (var i = 0; i < fields.length; i++) {
+  for (let i = 0; i < fields.length; i++) {
     fields[i].style.color = "black";
     if (!fields[i].value)
     {
@@ -190,7 +190,7 @@ sendButton.addEventListener("click", function handleClick(event) {
     Store_Form_Data.comment = comment.value;
     console.log("Форма отправлена\n", JSON.stringify(Store_Form_Data))
     alert("Переговорная успешно забронирована")
-    for (var i = 0; i < fields.length; i++) {
+    for (let i = 0; i < fields.length; i++) {
       fields[i].style.color = "black";
       if (fields[i].value)
         fields[i].value = clearForm(fields[i].value);
@@ -202,7 +202,7 @@ clearButton.addEventListener('click', function handleClick(event) {
   event.preventDefault();
   console.log("Нажата кнопка 'Очистить'");
 
-  for (var i = 0; i < fields.length; i++) {
+  for (let i = 0; i < fields.length; i++) {
     fields[i].style.color = "black";
     if (fields[i].value)
       fields[i].value = clearForm(fields[i].value);
