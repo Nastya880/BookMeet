@@ -201,12 +201,16 @@ sendButton.addEventListener("click", function handleClick(event) {
 clearButton.addEventListener('click', function handleClick(event) {
   event.preventDefault();
   console.log("Нажата кнопка 'Очистить'");
+  let flagClearValue = 0;
 
   for (let i = 0; i < fields.length; i++) {
     fields[i].style.color = "black";
-    if (fields[i].value)
+    if (fields[i].value) {
       console.log("Значение ", fields[i].value, " удалено");
-      fields[i].value = clearForm(fields[i].value);
+      flagClearValue += 1;
+    }
+    fields[i].value = clearForm(fields[i].value);
   }
-  alert("Значения полей формы удалены");
+  if (flagClearValue > 0)
+    alert("Значения полей формы удалены");
 });
