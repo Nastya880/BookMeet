@@ -137,8 +137,9 @@ checkInputTime.startInput.addEventListener("change", function (event) {
   let inputTimeStartString = event.target.value.toString();
   checkInputTime.inputStartMinute = inputTimeStartString.slice(3,5);
   checkInputTime.inputStartHour = inputTimeStartString.slice(0,2);
+
   if(!checkInputDate.dateCheck)
-  checkInputTime.startCheck = generateError("Указана неверная дата", checkInputDate.input, event.target);
+    checkInputTime.startCheck = generateError("Указана неверная дата", checkInputDate.input, event.target);
   else if (checkInputDate.localYear - checkInputDate.inputYear == 0 && checkInputDate.localMonth - checkInputDate.inputMonth == 0 && checkInputDate.localDay - checkInputDate.inputDay == 0) {
     if (checkInputTime.localHour - checkInputTime.inputStartHour > 0)
       checkInputTime.startCheck = generateError("Указано прошедшее время (час)", checkInputTime.inputStartHour, event.target);
@@ -158,6 +159,7 @@ checkInputTime.endInput.addEventListener("change", function (event) {
   let inputTimeEndString = event.target.value.toString();
   checkInputTime.inputEndMinute = inputTimeEndString.slice(3,5);
   checkInputTime.inputEndHour = inputTimeEndString.slice(0,2);
+
   if(!checkInputTime.startCheck)
     checkInputTime.endCheck = generateError("Указано неверное время начала бронирования переговорной", checkInputTime.startInput, event.target);
   else if (checkInputTime.inputStartHour - checkInputTime.inputEndHour > 0)
@@ -190,11 +192,12 @@ sendButton.addEventListener("click", function handleClick(event) {
     console.log("Форма отправлена\n", JSON.stringify(eventData));
     console.log("Поля формы очищены после отправки формы");
     alert("Переговорная успешно забронирована");
-    for (let i = 0; i < fields.length; i++) {
-      fields[i].style.color = "black";
-      if (fields[i].value)
-        fields[i].value = clearForm(fields[i].value);
-    }
+
+    fields.forEach(element => {
+      element.style.color = "black";
+      if (element.value)
+        element.value = clearForm(element.value);
+    })
   }
 });
 
@@ -203,14 +206,14 @@ clearButton.addEventListener('click', function handleClick(event) {
   console.log("Нажата кнопка 'Очистить'");
   let flagClearValue = 0;
 
-  for (let i = 0; i < fields.length; i++) {
-    fields[i].style.color = "black";
-    if (fields[i].value) {
-      console.log("Значение ", fields[i].value, " удалено");
+  fields.forEach(element => {
+    element.style.color = "black";
+    if (element.value) {
+      console.log("Значение ", element.value, " удалено");
       flagClearValue += 1;
     }
-    fields[i].value = clearForm(fields[i].value);
-  }
+    element.value = clearForm(element.value);
+  })
   if (flagClearValue > 0)
     alert("Значения полей формы удалены");
 });
